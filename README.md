@@ -6,6 +6,7 @@ Người vay: Cá nhân cần vay tiền gấp để chi tiêu, mua sắm hoặc
 Hệ thống quản lý: Hệ thống sẽ xét duyệt và cấp khoản vay.
 
 4. Chức năng chính
+
 a) Dành cho người vay
 Đăng ký / Đăng nhập: Sử dụng số điện thoại, email hoặc tài khoản ngân hàng.
 Xác minh danh tính: Tải lên CMND/CCCD, thông tin cá nhân.
