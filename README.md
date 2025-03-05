@@ -34,7 +34,7 @@ MONEYCAT là ứng dụng giúp người dùng vay tiền nhanh chóng với quy
 Ứng dụng hoạt động theo **mô hình tổ chức tài chính**, cấp khoản vay và thu hồi tiền từ người vay.  
 
 ## 🛠 **5. Công nghệ dự kiến**  
-- **📱 Frontend (Giao diện người dùng):** Android (Kotlin)  
+- **📱 Frontend (Giao diện người dùng):** Android (Kotlin)  + Figma
 - **📡 Backend (Xử lý dữ liệu):** MySQL  
 - **💳 Thanh toán:** Kết nối với MoMo, ZaloPay, ngân hàng  
 
