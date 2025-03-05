@@ -42,3 +42,5 @@ Thanh toán: Kết nối với MoMo, ZaloPay, ngân hàng
 ✅ Giảm thủ tục phức tạp so với ngân hàng
 ✅ Minh bạch, dễ theo dõi khoản vay
 ✅ Tích hợp nhắc nhở thanh toán, giảm tình trạng quên nợ
+
+https://www.figma.com/design/KKsqi830fDsoR7Txo6kHqa/Figma9?node-id=1-937&t=QaEcuZpO2qtA87yJ-1
