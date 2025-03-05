@@ -8,7 +8,6 @@ Hệ thống quản lý: Hệ thống sẽ xét duyệt và cấp khoản vay.
 3. Chức năng chính
 
 a) Dành cho người vay
-
 Đăng ký / Đăng nhập: Sử dụng số điện thoại, email hoặc tài khoản ngân hàng.
 Xác minh danh tính: Tải lên CMND/CCCD, thông tin cá nhân.
 Yêu cầu vay: Nhập số tiền cần vay, thời hạn vay, chọn hình thức trả góp.
