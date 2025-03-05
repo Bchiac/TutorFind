@@ -43,4 +43,9 @@ Thanh toán: Kết nối với MoMo, ZaloPay, ngân hàng
 ✅ Minh bạch, dễ theo dõi khoản vay
 ✅ Tích hợp nhắc nhở thanh toán, giảm tình trạng quên nợ
 
-https://www.figma.com/design/KKsqi830fDsoR7Txo6kHqa/Figma9?node-id=1-937&t=QaEcuZpO2qtA87yJ-1
+##  Thiết Kế Giao Diện  
+
+Xem bản thiết kế giao diện trên Figma tại đây:  
+[Ứng dụng cho vay tiền](https://www.figma.com/design/KKsqi830fDsoR7Txo6kHqa/Figma9?node-id=1-937&t=QaEcuZpO2qtA87yJ-1)  
+
+
