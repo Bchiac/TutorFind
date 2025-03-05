@@ -35,11 +35,7 @@ Backend (xử lý dữ liệu):MySQL
 Thanh toán: Kết nối với MoMo, ZaloPay, ngân hàng
 
 6. Lợi ích của ứng dụng
-   Giúp người vay nhận tiền nhanh chóng
-   Giảm thủ tục phức tạp so với ngân hàng
-   Minh bạch, dễ theo dõi khoản vay
-   Tích hợp nhắc nhở thanh toán, giảm tình trạng quên nợ
-   
+     
 ✅ Giúp người vay nhận tiền nhanh chóng
 ✅ Giảm thủ tục phức tạp so với ngân hàng
 ✅ Minh bạch, dễ theo dõi khoản vay
