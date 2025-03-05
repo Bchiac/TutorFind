@@ -5,7 +5,7 @@
 Người vay: Cá nhân cần vay tiền gấp để chi tiêu, mua sắm hoặc đầu tư.
 Hệ thống quản lý: Hệ thống sẽ xét duyệt và cấp khoản vay.
 
-4. Chức năng chính
+3. Chức năng chính
 
 a) Dành cho người vay
 Đăng ký / Đăng nhập: Sử dụng số điện thoại, email hoặc tài khoản ngân hàng.
@@ -25,16 +25,16 @@ Xét duyệt khoản vay
 Theo dõi thanh toán
 Nhắc nhở người vay khi đến hạn
 
-5. Mô hình hoạt động
+4. Mô hình hoạt động
 Mô hình tổ chức tài chính: Ứng dụng cấp khoản vay và thu tiền từ người vay.
 
-7. Công nghệ dự kiến
+5. Công nghệ dự kiến
    
 Frontend (giao diện): Android (Kotlin)
 Backend (xử lý dữ liệu):MySQL
 Thanh toán: Kết nối với MoMo, ZaloPay, ngân hàng
 
-9. Lợi ích của ứng dụng
+6. Lợi ích của ứng dụng
 ✅ Giúp người vay nhận tiền nhanh chóng
 ✅ Giảm thủ tục phức tạp so với ngân hàng
 ✅ Minh bạch, dễ theo dõi khoản vay
