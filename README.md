@@ -1,4 +1,3 @@
-Dưới đây là phiên bản được trình bày lại để trông chuyên nghiệp và dễ đọc hơn:  
 
 ---
 
