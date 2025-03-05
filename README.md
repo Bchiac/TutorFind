@@ -29,12 +29,12 @@ Nhắc nhở người vay khi đến hạn
 Mô hình tổ chức tài chính: Ứng dụng cấp khoản vay và thu tiền từ người vay.
 
 7. Công nghệ dự kiến
-8. 
+   
 Frontend (giao diện): Android (Kotlin)
 Backend (xử lý dữ liệu):MySQL
 Thanh toán: Kết nối với MoMo, ZaloPay, ngân hàng
 
-10. Lợi ích của ứng dụng
+9. Lợi ích của ứng dụng
 ✅ Giúp người vay nhận tiền nhanh chóng
 ✅ Giảm thủ tục phức tạp so với ngân hàng
 ✅ Minh bạch, dễ theo dõi khoản vay
