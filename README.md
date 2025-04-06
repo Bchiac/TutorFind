@@ -1,4 +1,3 @@
-Dưới đây là bản giới thiệu ứng dụng gia sư tương tự như cách bạn đã trình bày cho MONEYCAT:
 
 ---
 
