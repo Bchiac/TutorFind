@@ -1,4 +1,4 @@
-package com.example.tutorapp.screen
+package com.example.tutorapp.screen.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,25 +11,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tutorapp.navigation.Screen
-import androidx.compose.ui.text.input.VisualTransformation
+
 import androidx.compose.ui.text.style.TextDecoration
 
 import com.example.tutorapp.R
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.collectAsState
 @Composable
-fun LoginScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+fun LoginScreen(navController: NavController,
+                loginViewModel: LoginViewModel = viewModel()) {// Inject vào) {
 
+    val email by loginViewModel.email.collectAsState()
+    val password by loginViewModel.password.collectAsState()
+    val errorMessage by loginViewModel.errorMessage.collectAsState()
+    val loginSuccess by loginViewModel.loginSuccess.collectAsState()
     val scrollState = rememberScrollState()
+
+    LaunchedEffect(loginSuccess) {
+        if (loginSuccess) {
+            navController.navigate(Screen.Home.route) {
+                popUpTo(Screen.Login.route) { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -58,7 +68,7 @@ fun LoginScreen(navController: NavController) {
         // --- Ô nhập Email ---
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { loginViewModel.onEmailChange(it) },
             label = { Text("Email") },
             isError = email.isBlank() && errorMessage.isNotEmpty(),
             modifier = Modifier
@@ -79,13 +89,12 @@ fun LoginScreen(navController: NavController) {
         // --- Ô nhập Mật khẩu ---
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = { loginViewModel.onPasswordChange(it) },
             label = { Text("Mật khẩu") },
             isError = password.isBlank() && errorMessage.isNotEmpty(),
             modifier = Modifier.
             fillMaxWidth()
                 .padding(horizontal = 32.dp), // Cách lề 32dp mỗi bên
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
 
         )
         if (password.isBlank() && errorMessage.isNotEmpty()) {
@@ -102,13 +111,8 @@ fun LoginScreen(navController: NavController) {
 
         // --- Nút Đăng nhập ---
         Button(
-            onClick = {
-                if (email.isBlank() || password.isBlank()) {
-                    errorMessage = "Vui lòng điền đầy đủ thông tin"
-                } else {
-                    navController.navigate(Screen.Home.route)
-                }
-            },
+            onClick = { loginViewModel.login()
+                      },
             modifier = Modifier
                 .width(225.dp)
                 .align(Alignment.CenterHorizontally),

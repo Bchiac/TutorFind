@@ -24,7 +24,7 @@ fun HomeTopBar() {
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFFE91E63) // Xanh lá cây đậm
+            containerColor = Color(0xFFE91E63)
         )
     )
 }
