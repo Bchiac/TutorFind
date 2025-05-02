@@ -50,7 +50,7 @@ FINDTUTOR là ứng dụng giúp học sinh – phụ huynh dễ dàng tìm ki�
 
 ## 🎨 **Thiết Kế Giao Diện**  
 
-👉 **(Có thể chèn link Figma sau nếu đã thiết kế)**  
+
 🔗 *[Đang cập nhật]*
 
 ---
