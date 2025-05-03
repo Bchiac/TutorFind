@@ -21,3 +21,5 @@ TutorApp là ứng dụng Android hỗ trợ người dùng tìm kiếm, đăng 
 1. Clone repo về:
 ```bash
 git clone https://github.com/nhom21/TutorApp.git
+2. Mở bằng Android Studio
+3. Chạy project với thiết bị Android (API 24+)
