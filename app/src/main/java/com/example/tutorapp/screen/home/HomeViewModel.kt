@@ -1,32 +1,48 @@
 package com.example.tutorapp.screen.home
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-// Model class cho dữ liệu lớp học
+// Model class cho dữ liệu lớp học từ Firebase
 data class ClassItem(
-    val subject: String,
-    val tutorName: String,
-    val fee: String
+    val tutorId: String = "",
+    val subject: String = "",
+    val tutorName: String = "",
+    val fee: String = ""
 )
 
 class HomeViewModel : ViewModel() {
 
-    // StateFlow để quản lý danh sách lớp học
-    private val _classList = MutableStateFlow(
-        listOf(
-            ClassItem("Tiếng Anh", "Thanh Mai", "1,200,000đ"),
-            ClassItem("Toán Học", "Nguyễn An", "1,000,000đ"),
-            ClassItem("Vật Lý", "Trần Bình", "1,100,000đ")
-        )
-    )
-
+    private val _classList = MutableStateFlow<List<ClassItem>>(emptyList())
     val classList: StateFlow<List<ClassItem>> = _classList.asStateFlow()
 
-    // Hàm giả lập cập nhật dữ liệu từ API (nếu muốn sau này)
-    fun updateClassList(newList: List<ClassItem>) {
-        _classList.value = newList
+    val searchQuery = MutableStateFlow("")
+    fun onSearchQueryChanged(query: String) {
+        searchQuery.value = query
+    }
+
+    init {
+        loadClassList()
+    }
+
+    fun loadClassList() {
+        Firebase.firestore.collection("tutors")
+            .get()
+            .addOnSuccessListener { result ->
+                val list = result.mapNotNull { doc ->
+                    val data = doc.data
+                    ClassItem(
+                        tutorId = doc.id,
+                        subject = data["subject"] as? String ?: "",
+                        tutorName = data["name"] as? String ?: "",
+                        fee = data["fee"] as? String ?: ""
+                    )
+                }
+                _classList.value = list
+            }
     }
 }

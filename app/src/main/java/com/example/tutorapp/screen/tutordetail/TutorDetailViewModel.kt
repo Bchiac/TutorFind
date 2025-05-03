@@ -3,8 +3,8 @@ package com.example.tutorapp.screen.tutordetail
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 data class TutorDetail(
     val name: String = "",
     val subject: String = "",
@@ -12,24 +12,30 @@ data class TutorDetail(
     val level: String = "",
     val university: String = "",
     val major: String = "",
-    val degreeImageUrl: String = "", // Đường dẫn ảnh bằng cấp
-
+    val avatarUrl: String = "",
+    val phoneNumber: String = ""
 )
+
+
+
 
 class TutorDetailViewModel : ViewModel() {
 
-    private val _tutor = MutableStateFlow(
-        TutorDetail(
-            name = "Thanh Mai",
-            subject = "Tiếng Anh",
-            fee = "1,200,000đ",
-            level = "Sinh viên",
-            university = "Đại học Kinh Tế",
-            major = "Ngôn ngữ Anh",
-            degreeImageUrl = " ", // Có thể dùng ảnh mẫu
+    private val _tutor = MutableStateFlow(TutorDetail())
+    val tutor: StateFlow<TutorDetail> = _tutor
 
-        )
-    )
-
-    val tutor: StateFlow<TutorDetail> = _tutor.asStateFlow()
+    fun loadTutorById(id: String) {
+        Firebase.firestore.collection("tutors").document(id)
+            .get()
+            .addOnSuccessListener { document ->
+                val tutorData = document.toObject(TutorDetail::class.java)
+                if (tutorData != null) {
+                    _tutor.value = tutorData
+                }
+            }
+            .addOnFailureListener {
+                // TODO: handle error
+            }
+    }
 }
+

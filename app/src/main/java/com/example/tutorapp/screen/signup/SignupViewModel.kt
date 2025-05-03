@@ -1,7 +1,7 @@
 package com.example.tutorapp.screen.signup
 
-
 import androidx.lifecycle.ViewModel
+import com.example.tutorapp.firebase.FirebaseAuthManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -62,6 +62,14 @@ class SignupViewModel : ViewModel() {
             isValid = false
         }
 
-        _signupSuccess.value = isValid
+        if (isValid) {
+            FirebaseAuthManager.signup(
+                email = _email.value,
+                password = _password.value,
+                fullName = _email.value.substringBefore("@"), // có thể thay bằng tên riêng nếu có field
+                onSuccess = { _signupSuccess.value = true },
+                onError = { _emailError.value = it }
+            )
+        }
     }
 }

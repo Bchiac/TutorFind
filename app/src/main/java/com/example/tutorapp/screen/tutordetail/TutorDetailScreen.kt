@@ -1,7 +1,5 @@
 package com.example.tutorapp.screen.tutordetail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -12,25 +10,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
-import com.example.tutorapp.R
+import coil.compose.AsyncImage
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TutorDetailScreen(
     navController: NavController,
+    tutorId: String, // ✅ Thêm tham số
     viewModel: TutorDetailViewModel = viewModel()
 ) {
     val tutor by viewModel.tutor.collectAsState()
+    val context = LocalContext.current
+
+    // ✅ Gọi dữ liệu từ Firestore
+    LaunchedEffect(tutorId) {
+        viewModel.loadTutorById(tutorId)
+    }
 
     Scaffold(
         topBar = {
@@ -56,14 +60,14 @@ fun TutorDetailScreen(
 
         Column(
             modifier = Modifier
-                .padding(innerPadding) // lấy padding chuẩn
+                .padding(innerPadding)
                 .fillMaxSize()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Nội dung avatar + thông tin gia sư
-            Image(
-                painter = painterResource(id = R.drawable.tutor),
+            // Ảnh đại diện giáo viên
+            AsyncImage(
+                model = tutor.avatarUrl,
                 contentDescription = "Avatar",
                 modifier = Modifier
                     .size(100.dp)
@@ -74,31 +78,24 @@ fun TutorDetailScreen(
 
             Text(tutor.name, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             Text("Trình độ: ${tutor.level}", style = MaterialTheme.typography.bodyMedium)
+            Text("Lớp dạy: ${tutor.subject}", style = MaterialTheme.typography.bodyMedium)
             Text("Trường: ${tutor.university}", style = MaterialTheme.typography.bodyMedium)
             Text("Chuyên ngành: ${tutor.major}", style = MaterialTheme.typography.bodyMedium)
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Box(
-                modifier = Modifier
-                    .size(150.dp)
-                    .background(Color.LightGray)
-            ) {
-                Text(
-                    text = "Ảnh bằng cấp",
-                    modifier = Modifier.align(Alignment.Center),
-                    textAlign = TextAlign.Center
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-
-
             Spacer(modifier = Modifier.height(24.dp))
 
+            val context = LocalContext.current
+
             Button(
-                onClick = { /* TODO: Liên hệ */ },
+                onClick = {
+                    val phone = tutor.phoneNumber.trim()
+                    if (phone.isNotEmpty()) {
+                        val intent = Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:$phone")
+                        }
+                        context.startActivity(intent)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -109,12 +106,8 @@ fun TutorDetailScreen(
             ) {
                 Text("Liên hệ ngay", color = Color.White)
             }
+
         }
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun TutorPreview() {
-    TutorDetailScreen(navController = rememberNavController())
-}

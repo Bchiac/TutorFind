@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757226185090",
+    "project_id": "turtorapp",
+    "storage_bucket": "turtorapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757226185090:android:948777e7e646f9d90e2f9b",
+        "android_client_info": {
+          "package_name": "com.example.tutorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaBOT-Fa6gsh1b65KqofBfiNO3EKbruF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,13 +16,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tutorapp.navigation.Screen
-
 import androidx.compose.ui.text.style.TextDecoration
-
 import com.example.tutorapp.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+
 @Composable
 fun LoginScreen(navController: NavController,
                 loginViewModel: LoginViewModel = viewModel()) {// Inject vào) {
@@ -30,17 +35,25 @@ fun LoginScreen(navController: NavController,
     val email by loginViewModel.email.collectAsState()
     val password by loginViewModel.password.collectAsState()
     val errorMessage by loginViewModel.errorMessage.collectAsState()
-    val loginSuccess by loginViewModel.loginSuccess.collectAsState()
+
     val scrollState = rememberScrollState()
+    var passwordVisible by remember { mutableStateOf(false) }
+    val loginSuccess by loginViewModel.loginSuccess.collectAsState()
+    val userRole by loginViewModel.userRole.collectAsState() // <-- thêm biến theo dõi role
 
     LaunchedEffect(loginSuccess) {
         if (loginSuccess) {
-            navController.navigate(Screen.Home.route) {
-                popUpTo(Screen.Login.route) { inclusive = true }
+            if (userRole == "ADMIN") {
+                navController.navigate("admin_dashboard") {
+                    popUpTo(Screen.Login.route) { inclusive = true }
+                }
+            } else {
+                navController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Login.route) { inclusive = true }
+                }
             }
         }
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,13 +86,13 @@ fun LoginScreen(navController: NavController,
             isError = email.isBlank() && errorMessage.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp) // Cách lề 32dp mỗi bên
+                .padding(horizontal = 32.dp)
         )
         if (email.isBlank() && errorMessage.isNotEmpty()) {
             Text("Trường này không được để trống",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 32.dp), // Cách lề 32dp mỗi bên,
+                    .padding(horizontal = 32.dp),
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodySmall)
         }
@@ -91,12 +104,22 @@ fun LoginScreen(navController: NavController,
             value = password,
             onValueChange = { loginViewModel.onPasswordChange(it) },
             label = { Text("Mật khẩu") },
-            isError = password.isBlank() && errorMessage.isNotEmpty(),
-            modifier = Modifier.
-            fillMaxWidth()
-                .padding(horizontal = 32.dp), // Cách lề 32dp mỗi bên
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            singleLine = true,
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon = {
+                val image = if (passwordVisible)
+                    Icons.Default.Visibility
+                else Icons.Default.VisibilityOff
 
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(imageVector = image, contentDescription = null)
+                }
+            }
         )
+
         if (password.isBlank() && errorMessage.isNotEmpty()) {
             Text("Trường này không được để trống",
                 modifier = Modifier
@@ -117,7 +140,7 @@ fun LoginScreen(navController: NavController,
                 .width(225.dp)
                 .align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFE91E63) // Đây là màu cam, bạn đổi mã màu tùy ý
+                containerColor = Color(0xFFE91E63)
             )
         ) {
             Text("Đăng nhập")
